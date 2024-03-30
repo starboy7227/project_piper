@@ -17,6 +17,7 @@ public:
 	void generateBoard(int length, int width);
 	void keyin();
 	void Move();
+	tile getTile(int i,int j);
 	void refresh();
-	
+	void change(int i, int j,tile a);
 };

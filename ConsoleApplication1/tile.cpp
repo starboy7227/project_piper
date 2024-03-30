@@ -10,7 +10,7 @@ void tile::setType(int num) {
 
 void tile::randomTile() {
 	int x = 0;
-	srand(time(NULL));
+	srand(unsigned(time(NULL)));
 	x = rand() % 11;
 	setType(x);
 }
@@ -25,4 +25,26 @@ void tile::printMidTile() {
 
 void tile::printBotTile() {
 	std::cout << botApper[type];
+}
+
+
+
+void tile::rotate() {
+	if (type == 0) {
+	}
+	else if (type >= 1 && type <= 2) {
+		
+		type = type % 2;
+		type += 1;
+	}
+	else if (type >= 3 && type <= 6) {
+		type += 2;
+		type = type % 4;
+		type += 3;
+	}
+	else if (type >= 7 && type <= 10) {
+		type += 2;
+		type = type % 4;
+		type += 7;
+	}
 }

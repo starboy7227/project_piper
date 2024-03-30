@@ -20,6 +20,10 @@ void setColor(int color = 7)
 	SetConsoleTextAttribute(hConsole, color);
 }
 
+tile board::getTile(int i,int j) {
+	return gameBoard[j][i];
+}
+
 void board::refresh() {
 	mouseXY(0, 0);
 	gameBoard.resize(length+1);
@@ -33,7 +37,7 @@ void board::refresh() {
 		for (int j = 0; j < width; j++) {
 
 			if (j == pickedX && i == pickedY) {
-				setColor(240);
+				setColor(139);
 				gameBoard[i][j].printTopTile();
 				setColor(15);
 			}
@@ -46,7 +50,7 @@ void board::refresh() {
 
 		for (int j = 0; j < width; j++) {
 			if (j == pickedX && i == pickedY) {
-				setColor(240);
+				setColor(139);
 				gameBoard[i][j].printMidTile();
 				setColor(15);
 			}
@@ -59,7 +63,7 @@ void board::refresh() {
 
 		for (int j = 0; j < width; j++) {
 			if (j == pickedX && i == pickedY) {
-				setColor(240);
+				setColor(139);
 				gameBoard[i][j].printBotTile();
 				setColor(15);
 			}
@@ -84,10 +88,14 @@ board::board() {
 	}*/
 }
 
+void board::change(int i,int j,tile a) {
+	a.rotate();
+	gameBoard[j][i] = a;
+}
+
 void board::generateBoard(int length, int width) {
 	this->length = length;
 	this->width = width;
-
 	gameBoard.resize(length);
 	for (int i = 0; i < length; i++) {
 		gameBoard[i].resize(width);
@@ -102,12 +110,20 @@ void board::generateBoard(int length, int width) {
 	refresh();
 }
 
+void board::Move() {
+	mouseXY(5, length * 3);
+	keyin();
+}
+
+
 void board::keyin() {
 	mouseXY(10, length * 3);
+
 	char reg = 0;
 	int regx = pickedX;
 	int regy = pickedY;
 	reg = _getch();
+	cout << reg;
 	if (reg == 77) {
 		printf(">");
 		pickedX += 1;
@@ -124,6 +140,11 @@ void board::keyin() {
 		printf("^");
 		pickedY -= 1;
 	}
+	else if (reg == 13) {
+		change(pickedX, pickedY, getTile(pickedX, pickedY));
+		printf("@");
+
+	}
 
 	mouseXY(0, length * 3 + 1);
 
@@ -139,8 +160,4 @@ void board::keyin() {
 	mouseXY(0, length * 3);
 }
 
-void board::Move() {
-	mouseXY(5, length * 3);
-	 keyin();
-}
 
