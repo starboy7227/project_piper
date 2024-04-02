@@ -11,6 +11,8 @@ private:
 	int width;
 	int pickedX;
 	int pickedY;
+	std::vector<int> xAns;
+	std::vector<int> yAns;
 	std::vector<std::vector <tile>> gameBoard;
 public:
 	board();
