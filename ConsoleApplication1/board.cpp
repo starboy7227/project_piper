@@ -50,7 +50,7 @@ void board::refresh() {
 				gameBoard[i][j].printTopTile();
 				setColor(15);
 			}
-			else if (finder(xAns, yAns, j, i) || (j == 0 && i == 0)) {
+			else if (finder(xAns, yAns, j, i) ) {
 				setColor(95);
 				gameBoard[i][j].printTopTile();
 				setColor(15);
@@ -68,7 +68,7 @@ void board::refresh() {
 				gameBoard[i][j].printMidTile();
 				setColor(15);
 			}
-			else if(finder(xAns,yAns,j,i) || (j == 0 && i == 0)){
+			else if(finder(xAns,yAns,j,i) ){
 				setColor(95);
 				gameBoard[i][j].printMidTile();
 				setColor(15);
@@ -86,7 +86,7 @@ void board::refresh() {
 				gameBoard[i][j].printBotTile();
 				setColor(15);
 			}
-			else if (finder(xAns, yAns, j, i) || (j == 0 && i == 0)) {
+			else if (finder(xAns, yAns, j, i) ) {
 				setColor(95);
 				gameBoard[i][j].printBotTile();
 				setColor(15);
@@ -126,7 +126,9 @@ void board::generateBoard(int length, int width) {
 	vector<string> maze;
 	int rnd = 0;
 	int brnd = 0;
-	
+	int rndTime = 0;
+	int rndAns = 0;
+	int rndDir = 0;
 	gameBoard.resize(length);
 	maze.resize(length);
 
@@ -135,23 +137,80 @@ void board::generateBoard(int length, int width) {
 		maze[i].resize(width);
 	}
 
-	maze[0][0] = 'a';
-	while (x != length - 1 || y != width - 1) {
-		srand(time(NULL));
-		rnd = rand();
-		
+
+	srand(time(NULL));
+
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < width; j++) {
+			
+			rnd = rand() % 2;
+			if (j + 1 >= width) {
+				maze[i][j] = 'd';
+			}
+			else if (i + 1 >= length) {
+				maze[i][j] = 'r';
+			}
+			else if (rnd == 0) {
+				maze[i][j] = 'r';
+			}
+			else if (rnd == 1) {
+				maze[i][j] = 'd';
+			}
+		}
+	}
+	rnd = rand() % 2;
+	if (rnd == 0) {
+		rnd = rand() % length;
+		x = rnd;
+		y = 0;
+		xAns.push_back(rnd);
+		yAns.push_back(0);
+	}
+	else {
+		rnd = rand() % width; 
+		y = rnd;
+		x = 0;
+		yAns.push_back(rnd);
+		xAns.push_back(0);
 	}
 
 
 	while (x != length - 1 || y != width - 1) {
 		if (maze[y][x] == 'd') {
 			y += 1;
+			xAns.push_back(x);
+			yAns.push_back(y);
 		}
 		else {
 			x += 1;
+			xAns.push_back(x);
+			yAns.push_back(y);
 		}
-		
 	}
+
+	/*rndTime = rand() % 15;
+	for (int i = 0; i < rndTime; i++) {
+		rndAns = rand() % xAns.size();
+		rndDir = rand() % 2;
+		if (rndDir == 0) {
+			if()
+			for (int j = 1; j <=3; j++) {
+				if (yAns[rndAns] - j >= 0) {
+					xAns.push_back(xAns[rndAns]);
+					yAns.push_back(yAns[rndAns] - j);
+				}
+			}
+
+		}
+		else {
+			for (int j = 1; j <= 3; j++) {
+				if (xAns[rndAns] + j < width) {
+					xAns.push_back(xAns[rndAns] + j);
+					yAns.push_back(yAns[rndAns]);
+				}
+			}
+		}
+	}*/
 	/*for (int i = 0; i < length; i++) {
 		for (int j = 0; j < width; j++) {
 			cout << maze[i][j];
