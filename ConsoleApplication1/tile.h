@@ -9,7 +9,7 @@ private:
 	string botApper[11] = { " # "   ,"   "   ," # ","   " ,"   " ," # " ," # " ," # " ,"   " ," # " ," # " };
 public:
 	void setType(int num);
-	void randomTile();
+	void randomTile(char mode,int seed);
 	void printTopTile();
 	void printMidTile();
 	void printBotTile();
