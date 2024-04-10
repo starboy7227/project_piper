@@ -204,11 +204,11 @@ void board::generateBoard(int length, int width) {
 		if (rnd == 0) {
 			rnd = rand() % width + 1;
 			endX = rnd;
-			endY = width;
+			endY = length;
 		}
 		else {
 			rnd = rand() % length + 1;
-			endX = length;
+			endX = width;
 			endY = rnd;
 		}
 	}
@@ -323,6 +323,20 @@ void board::generateBoard(int length, int width) {
 			pathx.push_back(x);
 			pathy.push_back(y);
 		}
+
+		for (int i = 0; i < length+2; i++) {
+			for (int j = 0; j < width+2; j++) {
+				if (maze[i][j] == 0) {
+					cout << "0";
+				}
+				else {
+					cout << maze[i][j];
+				}
+				
+			}
+			cout << endl;
+		}
+
 	}
 
 	for (int i = 0; i < length ; i++) {
@@ -359,10 +373,11 @@ void board::generateBoard(int length, int width) {
 		}
 	}
 
-	for (int i = 0; i < xAns.size(); i++) {
+	/*for (int i = 0; i < xAns.size(); i++) {
 		cout << "xAns = " << xAns[i] << " yAns = " << yAns[i] << endl;
-	}
-	gameBoard[yAns[0]][xAns[0]].setType(0);
+	}*/
+	cout << "xAns = " << xAns[0] << " yAns = " << yAns[0] << endl;
+	gameBoard[yAns[0] ][xAns[0] ].setType(0);
 
 	refresh();
 }
