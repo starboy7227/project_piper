@@ -20,6 +20,10 @@ int main()
    while (1) {
         a.Move();
         a.refresh();
+        if (a.clear) {
+            cout << "Stage Clear!" << endl;
+            break;
+        }
     }
 }
 

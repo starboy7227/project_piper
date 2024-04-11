@@ -84,6 +84,14 @@ void tile::printBotTile() {
 	std::cout << botApper[type];
 }
 
+void tile::printArtTop() {
+    std::cout << artTop[type];
+}
+
+void tile::printArtBot() {
+    std::cout << artBot[type];
+}
+
 
 
 void tile::rotate() {
